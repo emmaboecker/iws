@@ -22,12 +22,21 @@ suspend fun BansystemCommandModule.reportCommand() = ephemeralSlashCommand(::Rep
     guildAdminOnly()
 
     action {
+        if (arguments.user.isBot) {
+            respond {
+                content = "The User can't be a Bot"
+            }
+            return@action
+        }
+
         val doc = Database.bannedUserCollection.findOneById(arguments.user.id)
         if (doc != null) {
             if (arguments.reason != null) {
-                Database.bannedUserCollection.save(doc.copy(
-                    reasons = doc.reasons + arguments.reason!!
-                ))
+                Database.bannedUserCollection.save(
+                    doc.copy(
+                        reasons = doc.reasons + arguments.reason!!
+                    )
+                )
             }
             respond {
                 content = "This User is already reported" +
