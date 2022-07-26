@@ -4,10 +4,12 @@ import com.kotlindiscord.kord.extensions.builders.ExtensibleBotBuilder
 import dev.schlaubi.mikbot.plugin.api.Plugin
 import dev.schlaubi.mikbot.plugin.api.PluginMain
 import dev.schlaubi.mikbot.plugin.api.PluginWrapper
+import net.stckoverflw.bansystem.command.autoReportCommand
 import net.stckoverflw.bansystem.command.pingRoleCommand
 import net.stckoverflw.bansystem.command.reportCommand
 import net.stckoverflw.bansystem.command.scanCommand
 import net.stckoverflw.bansystem.command.warningChannelCommand
+import net.stckoverflw.bansystem.listener.banListener
 import net.stckoverflw.bansystem.listener.interactionCreateListener
 import net.stckoverflw.bansystem.listener.memberJoinListener
 import com.kotlindiscord.kord.extensions.extensions.Extension as KordExtension
@@ -34,6 +36,7 @@ class BansystemCommandModule : KordExtension() {
         scanCommand()
         warningChannelCommand()
         pingRoleCommand()
+        autoReportCommand()
     }
 }
 
@@ -43,6 +46,7 @@ class BansystemListenerModule : KordExtension() {
     override suspend fun setup() {
         interactionCreateListener()
         memberJoinListener()
+        banListener()
     }
 }
 
