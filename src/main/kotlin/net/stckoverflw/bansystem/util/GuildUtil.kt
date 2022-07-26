@@ -20,6 +20,9 @@ suspend fun scanAllGuilds(kord: Kord, user: User) {
         val bannedUser = Database.bannedUserCollection.findOneById(user.id) ?: return@collectLatest
 
         it.getChannelOf<TextChannel>(settings.logChannel).createMessage {
+            content = settings.pingRoles.joinToString(", ") {id ->
+                "<@&${id}>"
+            }
             embed {
                 title = "New Reported User Found"
                 description = "There was a User found that was reported on another Server"

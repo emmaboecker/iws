@@ -7,5 +7,6 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class BanSystemSettings(
     @SerialName("_id") val guildId: Snowflake,
-    val logChannel: Snowflake? = null
+    val logChannel: Snowflake? = null,
+    val pingRoles: List<Snowflake> = arrayListOf()
 )

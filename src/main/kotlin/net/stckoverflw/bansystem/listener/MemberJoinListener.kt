@@ -19,6 +19,9 @@ suspend fun BansystemListenerModule.memberJoinListener() = event<MemberJoinEvent
         val bannedUser = Database.bannedUserCollection.findOneById(event.member.id) ?: return@action
 
         event.guild.getChannelOf<TextChannel>(settings.logChannel).createMessage {
+            content = settings.pingRoles.joinToString(", ") {id ->
+                "<@&${id}>"
+            }
             embed {
                 title = "Reported User Joined the Server"
                 description = "A User joined the Server that was reported on another Server"

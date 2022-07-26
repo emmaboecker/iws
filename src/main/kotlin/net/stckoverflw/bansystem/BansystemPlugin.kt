@@ -4,6 +4,7 @@ import com.kotlindiscord.kord.extensions.builders.ExtensibleBotBuilder
 import dev.schlaubi.mikbot.plugin.api.Plugin
 import dev.schlaubi.mikbot.plugin.api.PluginMain
 import dev.schlaubi.mikbot.plugin.api.PluginWrapper
+import net.stckoverflw.bansystem.command.pingRoleCommand
 import net.stckoverflw.bansystem.command.reportCommand
 import net.stckoverflw.bansystem.command.scanCommand
 import net.stckoverflw.bansystem.command.warningChannelCommand
@@ -32,6 +33,7 @@ class BansystemCommandModule : KordExtension() {
         reportCommand()
         scanCommand()
         warningChannelCommand()
+        pingRoleCommand()
     }
 }
 

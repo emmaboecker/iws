@@ -69,7 +69,7 @@ suspend fun BansystemCommandModule.reportCommand() = ephemeralSlashCommand(::Rep
 class ReportCommandArguments : Arguments() {
     val user by user {
         name = "user"
-        description = "user to report"
+        description = "user or id of user to report"
     }
     val reason by optionalString {
         name = "reason"
