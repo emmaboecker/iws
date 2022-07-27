@@ -5,12 +5,13 @@ import dev.kord.core.behavior.channel.createMessage
 import dev.kord.core.behavior.getChannelOf
 import dev.kord.core.entity.User
 import dev.kord.core.entity.channel.TextChannel
+import dev.kord.core.supplier.EntitySupplyStrategy
 import dev.kord.rest.builder.message.create.embed
 import kotlinx.coroutines.flow.onEach
 import net.stckoverflw.bansystem.database.Database
 
 suspend fun scanAllGuilds(kord: Kord, user: User) {
-    kord.guilds.onEach {
+    kord.with(EntitySupplyStrategy.rest).guilds.onEach {
         val member = it.getMemberOrNull(user.id) ?: return@onEach
 
         val settings = Database.botSettingsCollection.findOneById(it.id) ?: return@onEach
