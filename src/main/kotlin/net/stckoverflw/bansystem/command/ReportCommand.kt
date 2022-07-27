@@ -63,6 +63,7 @@ suspend fun BansystemCommandModule.reportCommand() = ephemeralSlashCommand(::Rep
         }
 
         scanAllGuilds(kord, arguments.user)
+
     }
 }
 

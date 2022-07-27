@@ -1,4 +1,5 @@
 .idea
 .gradle
 build
+.test-env
 .env
