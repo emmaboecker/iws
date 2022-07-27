@@ -6,18 +6,18 @@ import dev.kord.core.behavior.getChannelOf
 import dev.kord.core.entity.User
 import dev.kord.core.entity.channel.TextChannel
 import dev.kord.rest.builder.message.create.embed
-import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.onEach
 import net.stckoverflw.bansystem.database.Database
 
 suspend fun scanAllGuilds(kord: Kord, user: User) {
-    kord.guilds.collectLatest {
-        val member = it.getMemberOrNull(user.id) ?: return@collectLatest
+    kord.guilds.onEach {
+        val member = it.getMemberOrNull(user.id) ?: return@onEach
 
-        val settings = Database.botSettingsCollection.findOneById(it.id) ?: return@collectLatest
+        val settings = Database.botSettingsCollection.findOneById(it.id) ?: return@onEach
 
-        if (settings.logChannel == null) return@collectLatest
+        if (settings.logChannel == null) return@onEach
 
-        val bannedUser = Database.bannedUserCollection.findOneById(user.id) ?: return@collectLatest
+        val bannedUser = Database.bannedUserCollection.findOneById(user.id) ?: return@onEach
 
         it.getChannelOf<TextChannel>(settings.logChannel).createMessage {
             content = settings.pingRoles.joinToString(", ") {id ->
