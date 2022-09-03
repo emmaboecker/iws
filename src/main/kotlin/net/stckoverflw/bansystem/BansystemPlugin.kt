@@ -5,6 +5,7 @@ import dev.schlaubi.mikbot.plugin.api.Plugin
 import dev.schlaubi.mikbot.plugin.api.PluginMain
 import dev.schlaubi.mikbot.plugin.api.PluginWrapper
 import net.stckoverflw.bansystem.command.autoReportCommand
+import net.stckoverflw.bansystem.command.infoCommand
 import net.stckoverflw.bansystem.command.pingRoleCommand
 import net.stckoverflw.bansystem.command.reportCommand
 import net.stckoverflw.bansystem.command.scanCommand
@@ -37,6 +38,7 @@ class BansystemCommandModule : KordExtension() {
         warningChannelCommand()
         pingRoleCommand()
         autoReportCommand()
+        infoCommand()
     }
 }
 
