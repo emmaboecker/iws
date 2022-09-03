@@ -20,11 +20,15 @@ suspend fun BansystemCommandModule.announceCommand() = ephemeralSlashCommand(::A
         val guildSettings = Database.botSettingsCollection.find().toList()
 
         guildSettings.forEach { setting ->
-            setting.logChannel?.let { channel ->
-                val guild = this@announceCommand.kord.getGuild(setting.guildId)
-                guild?.getChannelOf<TextChannel>(channel)?.createMessage {
-                    content = setting.pingRoles.joinToString { "<@&${it.value}>" } + "\n" + arguments.message
+            try {
+                setting.logChannel?.let { channel ->
+                    val guild = this@announceCommand.kord.getGuild(setting.guildId)
+                    guild?.getChannelOf<TextChannel>(channel)?.createMessage {
+                        content = setting.pingRoles.joinToString { "<@&${it.value}>" } + "\n" + arguments.message
+                    }
                 }
+            } catch (exception: Exception) {
+                println("Error while sending announcement to ${setting.guildId}: ${exception.message}")
             }
         }
 
