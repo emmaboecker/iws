@@ -4,7 +4,7 @@ plugins {
     id("com.google.devtools.ksp") version "1.7.10-1.0.6"
     kotlin("jvm") version "1.7.10"
     kotlin("plugin.serialization") version "1.7.10"
-    id("dev.schlaubi.mikbot.gradle-plugin") version "2.5.0"
+    id("dev.schlaubi.mikbot.gradle-plugin") version "2.6.0"
 }
 
 group = "net.stckoverflw"
@@ -17,8 +17,8 @@ repositories {
 
 dependencies {
     compileOnly(kotlin("stdlib-jdk8"))
-    mikbot("dev.schlaubi", "mikbot-api", "3.8.0-SNAPSHOT")
-    ksp("dev.schlaubi", "mikbot-plugin-processor", "2.2.1")
+    mikbot("dev.schlaubi", "mikbot-api", "3.10.0-SNAPSHOT")
+    ksp("dev.schlaubi", "mikbot-plugin-processor", "2.3.0")
 }
 
 tasks.withType<KotlinCompile> {
