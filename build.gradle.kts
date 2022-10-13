@@ -2,7 +2,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     id("com.google.devtools.ksp") version "1.7.20-1.0.6"
-    kotlin("jvm") version "1.7.10"
+    kotlin("jvm") version "1.7.20"
     kotlin("plugin.serialization") version "1.7.20"
     id("dev.schlaubi.mikbot.gradle-plugin") version "2.6.3"
 }
