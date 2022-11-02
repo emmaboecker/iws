@@ -3,6 +3,8 @@ package net.stckoverflw.bansystem.command
 import com.kotlindiscord.kord.extensions.commands.Arguments
 import com.kotlindiscord.kord.extensions.commands.converters.impl.user
 import com.kotlindiscord.kord.extensions.extensions.ephemeralSlashCommand
+import com.kotlindiscord.kord.extensions.time.TimestampType
+import com.kotlindiscord.kord.extensions.time.toDiscord
 import com.kotlindiscord.kord.extensions.types.respond
 import dev.kord.rest.builder.message.create.embed
 import dev.schlaubi.mikbot.plugin.api.settings.guildAdminOnly
@@ -28,7 +30,6 @@ suspend fun BansystemCommandModule.infoCommand() = ephemeralSlashCommand(::InfoC
                 title = arguments.user.tag
                 description = "Information about ${arguments.user.mention}"
 
-
                 field {
                     name = "Reasons"
                     value =
@@ -50,6 +51,26 @@ suspend fun BansystemCommandModule.infoCommand() = ephemeralSlashCommand(::InfoC
                         "Guild not found"
                     } else {
                         "${guild.name} (${guild.id})"
+                    }
+                    inline = true
+                }
+
+                if (report.reportedBy != null) {
+                    field {
+                        name = "Reported by"
+                        val user = this@infoCommand.kord.getUser(report.reportedBy)
+                        value = if (user == null) {
+                            "Unknown User"
+                        } else {
+                            "${user.tag} (${user.mention} ${user.id})"
+                        }
+                        inline = true
+                    }
+                }
+                if (report.reportedAt != null) {
+                    field {
+                        name = "Reported at"
+                        value = report.reportedAt.toDiscord(TimestampType.ShortDateTime)
                     }
                 }
             }

@@ -2,6 +2,7 @@ package net.stckoverflw.bansystem.listener
 
 import com.kotlindiscord.kord.extensions.extensions.event
 import dev.kord.core.event.guild.BanAddEvent
+import kotlinx.datetime.Clock
 import net.stckoverflw.bansystem.BansystemListenerModule
 import net.stckoverflw.bansystem.database.Database
 import net.stckoverflw.bansystem.database.model.BanSystemSettings
@@ -16,15 +17,17 @@ suspend fun BansystemListenerModule.banListener() = event<BanAddEvent> {
         if (!settings.autoReport) return@action
 
         val existingBan = Database.bannedUserCollection.findOneById(event.user.id)
-        val reason = event.getBan().data.reason
+        val reason = event.getBan().reason
 
         if (existingBan != null) {
             if (!reason.isNullOrBlank()) {
-                Database.bannedUserCollection.save(
-                    existingBan.copy(
-                        reasons = existingBan.reasons + reason
+                if (!reason.startsWith("Banned by", true) && !reason.endsWith("using Button", true)) {
+                    Database.bannedUserCollection.save(
+                        existingBan.copy(
+                            reasons = existingBan.reasons + reason
+                        )
                     )
-                )
+                }
             }
             return@action
         }
@@ -33,7 +36,9 @@ suspend fun BansystemListenerModule.banListener() = event<BanAddEvent> {
             BannedUser(
                 discordId = event.getBan().userId,
                 reportedOnServer = event.guildId,
-                reasons = if (reason != null) arrayListOf(reason) else arrayListOf()
+                reportedBy = null, // I sadly don't get this info here
+                reportedAt = Clock.System.now(),
+                reasons = if (reason != null) arrayListOf(reason) else emptyList()
             )
         )
 

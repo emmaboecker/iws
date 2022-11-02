@@ -1,5 +1,7 @@
 package net.stckoverflw.bansystem.util
 
+import com.kotlindiscord.kord.extensions.time.TimestampType
+import com.kotlindiscord.kord.extensions.time.toDiscord
 import dev.kord.core.Kord
 import dev.kord.core.behavior.channel.createMessage
 import dev.kord.core.behavior.getChannelOf
@@ -41,6 +43,35 @@ suspend fun scanAllGuilds(kord: Kord, user: User) {
                         field {
                             name = "Reason(s)"
                             value = bannedUser.reasons.joinToString(", \n", "`", "`")
+                        }
+                        field {
+                            name = "Reported on Server"
+                            val guild = kord.getGuild(bannedUser.reportedOnServer)
+                            value = if (guild == null) {
+                                "Guild not found"
+                            } else {
+                                "${guild.name} (${guild.id})"
+                            }
+                            inline = true
+                        }
+
+                        if (bannedUser.reportedBy != null) {
+                            field {
+                                name = "Reported by"
+                                val reporter = kord.getUser(bannedUser.reportedBy)
+                                value = if (reporter == null) {
+                                    "Unknown User"
+                                } else {
+                                    "${reporter.tag} (${reporter.mention} ${reporter.id})"
+                                }
+                                inline = true
+                            }
+                        }
+                        if (bannedUser.reportedAt != null) {
+                            field {
+                                name = "Reported at"
+                                value = bannedUser.reportedAt.toDiscord(TimestampType.ShortDateTime)
+                            }
                         }
                     }
                     banButton(member)

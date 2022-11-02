@@ -9,6 +9,7 @@ import dev.kord.core.supplier.EntitySupplyStrategy
 import dev.schlaubi.mikbot.plugin.api.settings.guildAdminOnly
 import dev.schlaubi.mikbot.plugin.api.util.kord
 import dev.schlaubi.mikbot.plugin.api.util.safeGuild
+import kotlinx.datetime.Clock
 import net.stckoverflw.bansystem.BansystemCommandModule
 import net.stckoverflw.bansystem.database.Database
 import net.stckoverflw.bansystem.database.model.BannedUser
@@ -50,6 +51,8 @@ suspend fun BansystemCommandModule.reportCommand() = ephemeralSlashCommand(::Rep
         Database.bannedUserCollection.save(BannedUser(
             arguments.user.id,
             this.safeGuild.id,
+            this.user.id,
+            Clock.System.now(),
             arrayListOf(arguments.reason)
         ))
 
