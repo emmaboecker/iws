@@ -46,7 +46,7 @@ suspend fun BansystemCommandModule.infoCommand() = ephemeralSlashCommand(::InfoC
 
                 field {
                     name = "Reported on Server"
-                    val guild = this@infoCommand.kord.getGuild(report.reportedOnServer)
+                    val guild = this@infoCommand.kord.getGuildOrNull(report.reportedOnServer)
                     value = if (guild == null) {
                         "Guild not found"
                     } else {

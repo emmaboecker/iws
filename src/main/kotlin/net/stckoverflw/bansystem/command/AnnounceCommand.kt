@@ -22,7 +22,7 @@ suspend fun BansystemCommandModule.announceCommand() = ephemeralSlashCommand(::A
         guildSettings.forEach { setting ->
             try {
                 setting.logChannel?.let { channel ->
-                    val guild = this@announceCommand.kord.getGuild(setting.guildId)
+                    val guild = this@announceCommand.kord.getGuildOrNull(setting.guildId)
                     guild?.getChannelOf<TextChannel>(channel)?.createMessage {
                         content = setting.pingRoles.joinToString { "<@&${it.value}>" } + "\n" + arguments.message
                     }

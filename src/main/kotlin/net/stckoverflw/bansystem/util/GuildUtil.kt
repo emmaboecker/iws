@@ -46,7 +46,7 @@ suspend fun scanAllGuilds(kord: Kord, user: User) {
                         }
                         field {
                             name = "Reported on Server"
-                            val guild = kord.getGuild(bannedUser.reportedOnServer)
+                            val guild = kord.getGuildOrNull(bannedUser.reportedOnServer)
                             value = if (guild == null) {
                                 "Guild not found"
                             } else {
