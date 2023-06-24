@@ -1,10 +1,10 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("com.google.devtools.ksp") version "1.7.20-1.0.7"
-    kotlin("jvm") version "1.7.20"
-    kotlin("plugin.serialization") version "1.7.20"
-    id("dev.schlaubi.mikbot.gradle-plugin") version "2.6.3"
+    id("com.google.devtools.ksp") version "1.8.22-1.0.11"
+    kotlin("jvm") version "1.8.22"
+    kotlin("plugin.serialization") version "1.8.22"
+    id("dev.schlaubi.mikbot.gradle-plugin") version "3.19.7"
 }
 
 group = "net.stckoverflw"
@@ -15,14 +15,8 @@ repositories {
     maven("https://oss.sonatype.org/content/repositories/snapshots")
 }
 
-dependencies {
-    compileOnly(kotlin("stdlib-jdk8"))
-    mikbot("dev.schlaubi", "mikbot-api", "3.10.0-SNAPSHOT")
-    ksp("dev.schlaubi", "mikbot-plugin-processor", "2.3.0")
-}
-
 tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "18"
+    kotlinOptions.jvmTarget = "19"
 }
 
 mikbotPlugin {
