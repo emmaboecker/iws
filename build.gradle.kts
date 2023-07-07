@@ -4,7 +4,7 @@ plugins {
     id("com.google.devtools.ksp") version "1.9.0-1.0.11"
     kotlin("jvm") version "1.8.22"
     kotlin("plugin.serialization") version "1.9.0"
-    id("dev.schlaubi.mikbot.gradle-plugin") version "3.19.8"
+    id("dev.schlaubi.mikbot.gradle-plugin") version "3.20.0"
 }
 
 group = "net.stckoverflw"
