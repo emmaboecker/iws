@@ -15,12 +15,25 @@ repositories {
     maven("https://oss.sonatype.org/content/repositories/snapshots")
 }
 
-tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "19"
+tasks {
+    withType<KotlinCompile> {
+        kotlinOptions.jvmTarget = "19"
+    }
+
+    compileKotlin {
+        kotlinOptions {
+            jvmTarget = "19"
+        }
+    }
+
+    compileJava {
+        this.targetCompatibility = "19"
+    }
 }
 
 mikbotPlugin {
     description.set("Simple Bansystem Plugin")
     provider.set("StckOverflw")
     license.set("MIT")
+    enableKordexProcessor.set(false)
 }
